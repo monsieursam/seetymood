@@ -18,14 +18,6 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 class App extends Component {
   render() {
   return (
