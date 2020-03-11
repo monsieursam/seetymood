@@ -76,11 +76,12 @@ class PhotoCamera extends React.PureComponent {
                 />
                 <View style={styles.topButtons}>
                     <TouchableOpacity onPress={this.flipCamera} style={styles.flipButton}>
-                        <Text test />
+                    <Text style={{ fontSize: 14 }}> PLOP </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.bottomButtons}>
                     <TouchableOpacity onPress={this.takePhoto} style={styles.recordingButton}>
+                    <Text style={{ fontSize: 14 }}> PLOP </Text>
 
                     </TouchableOpacity>
                 </View>
