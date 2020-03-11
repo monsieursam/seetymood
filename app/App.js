@@ -57,7 +57,7 @@ class App extends Component {
           }}
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+          <TouchableOpacity onPress={() => this.takePicture(this)} style={styles.capture}>
             <Text style={{ fontSize: 14 }}> SNAP </Text>
           </TouchableOpacity>
         </View>
@@ -67,6 +67,7 @@ class App extends Component {
   );
           }
           takePicture = async() => {
+            alert('jessayyye')
             if (this.camera) {
               const options = { quality: 0.5, base64: true };
               const data = await this.camera.takePictureAsync(options);
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
+    marginTop: 80
   },
 });
 
