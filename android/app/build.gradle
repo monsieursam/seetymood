@@ -82,6 +82,7 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -131,6 +132,7 @@ android {
         applicationId "com.seetymood"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general'
         versionCode 1
         versionName "1.0"
     }
@@ -150,6 +152,7 @@ android {
             keyPassword 'android'
         }
     }
+    buildToolsVersion = '29.0.3'
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -179,6 +182,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-camera')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
