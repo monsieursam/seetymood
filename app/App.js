@@ -30,8 +30,6 @@ class App extends Component {
   render() {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
       <View style={styles.container}>
         <RNCamera
           ref={ref => {
@@ -58,11 +56,10 @@ class App extends Component {
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => this.takePicture(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+            <Text style={{ fontSize: 14 }}> PLOP </Text>
           </TouchableOpacity>
         </View>
       </View>
-      </SafeAreaView>
     </>
   );
           }
@@ -83,19 +80,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    width: '100%',
+    height: '90%',
+    backgroundColor: 'red'
   },
   capture: {
-    flex: 0,
-    backgroundColor: '#fff',
+    backgroundColor: 'blue',
     borderRadius: 5,
     padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-    marginTop: 80
+    paddingHorizontal: 20
   },
 });
 
