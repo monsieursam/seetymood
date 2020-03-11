@@ -16,9 +16,7 @@ import Camera from '../../components/Camera';
 class CameraView extends Component {
   render() {
   return (
-        <View>
             <Camera />
-        </View>
   );
     }
 };
