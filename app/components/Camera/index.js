@@ -19,69 +19,127 @@ import {
 import { RNCamera } from 'react-native-camera';
 
 export class Camera extends Component {
-  render() {
-  return (
-    <>
-      <View style={styles.container}>
-        <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes);
-          }}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={() => this.takePicture(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> PLOP </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </>
-  );
+  state = {
+    type: RNCamera.Constants.Type.back,
+    recordOptions: {
+      mute: false,
+      maxDuration: 5,
+      quality: RNCamera.Constants.VideoQuality['288p'],
     }
+  };
 
-    takePicture = async() => {
-        alert('jessayyye')
-        if (this.camera) {
-            const options = { quality: 0.5, base64: true };
-            const data = await this.camera.takePictureAsync(options);
-            console.log(data.uri);
-        }
+  flipCamera = async() => {
+    this.setState({
+        type:
+            this.state.type === RNCamera.Constants.Type.back
+                ? RNCamera.Constants.Type.front
+                : RNCamera.Constants.Type.back
+    })
+  };
+
+  takePhoto = async () => {
+    const options = {
+        quality: 0.5,
+        base64: true,
+        width: 300,
+        height: 300,
     };
-};
+    if (this.camera) {
+      const data = await this.camera.takePictureAsync(options);
+      console.log('takePicture', data.uri);
+    }
+  };
+
+  takeVideo = async () => {
+    if (this.camera) {
+      try {
+        const promise = this.camera.recordAsync(this.state.recordOptions);
+
+        if (promise) {
+          this.setState({ isRecording: true });
+          const data = await promise;
+          this.setState({ isRecording: false });
+          console.log('takeVideo', data.uri);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+
+  stopVideo = async () => {
+    await this.camera.stopRecording();
+  }
+
+  render() {
+    const { type } = this.state;
+    return (
+        <View style={styles.container}>
+            <RNCamera
+                ref={cam => {
+                    this.camera = cam;
+                }}
+                type={type}
+                style={styles.preview}
+            />
+            <View style={styles.topButtons}>
+                <TouchableOpacity onPress={this.flipCamera} style={styles.flipButton}>
+                  <Text style={{ fontSize: 14 }}> Flip </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.bottomButtons}>
+                <TouchableOpacity onPress={this.takeVideo} style={this.state.isRecording ? styles.hidden : styles.recordingButton }>
+                  <Text style={{ fontSize: 14}}> photo </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.stopVideo} style={this.state.isRecording ? styles.recordingButton : styles.hidden }>
+                    <Text style={{ fontSize: 14 }}> STOP </Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: 'black',
   },
   preview: {
-    width: '100%',
-    height: '90%',
-    backgroundColor: 'red'
+      width: '100%',
+      height: '100%',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
   },
-  capture: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
+  topButtons: {
+      flex: 1,
+      width: Dimensions.get('window').width,
+      alignItems: 'flex-start',
+      position: 'absolute'
+  },
+  bottomButtons: {
+      flex: 1,
+      width: Dimensions.get('window').width,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 10,
+
+  },
+  hidden : {
+    width: 0,
+    height: 0,
+  },
+  flipButton: {
+      flex: 1,
+      marginTop: 20,
+      right: 20,
+      right: 20,
+      alignSelf: 'flex-end',
+  },
+  recordingButton: {
+      marginBottom: 10,
   },
 });
 
