@@ -21,7 +21,7 @@ class PreviewView extends Component {
         return (
             <View>
                 <Text>Preview</Text>
-                <FontAwesomeIcon icon={ faCoffee } style={style.icon} />
+                <FontAwesomeIcon icon={ faCoffee } />
             </View>
         )
     }

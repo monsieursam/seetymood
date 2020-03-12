@@ -16,7 +16,7 @@ import Camera from '../../components/Camera';
 class CameraView extends Component {
   render() {
     return (
-      <Camera />
+      <Camera {...this.props} />
     );
   }
 };

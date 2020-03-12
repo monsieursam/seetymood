@@ -15,6 +15,8 @@ import 'react-native-gesture-handler';
 
 import SwiperView from './views/SwiperView'
 import VideoView from './views/VideoView'
+import PreviewView from './views/PreviewView'
+
 
 function LogoTitle() {
   return (
@@ -33,6 +35,7 @@ class App extends Component {
     >
         <Stack.Screen name="Home" component={SwiperView} />
         <Stack.Screen name="Video" component={VideoView} />
+        <Stack.Screen name="Preview" component={PreviewView} />
       </Stack.Navigator>
     </NavigationContainer>
   );

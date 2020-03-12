@@ -89,6 +89,7 @@ export class Camera extends Component {
           const data = await promise;
           this.setState({ isRecording: false });
           console.log('takeVideo', data.uri);
+          this.props.navigation.navigate('Preview', {urlVideo: data.uri})
         }
       } catch (e) {
         console.error(e);
