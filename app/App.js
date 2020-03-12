@@ -80,6 +80,10 @@ export default class App extends React.Component {
     }
   }
 
+  stopVideo = async () => {
+    await this.camera.stopRecording();
+  }
+
   render() {
     const { type } = this.state;
     return (
@@ -93,13 +97,15 @@ export default class App extends React.Component {
             />
             <View style={styles.topButtons}>
                 <TouchableOpacity onPress={this.flipCamera} style={styles.flipButton}>
-                <Text style={{ fontSize: 14 }}> Flip </Text>
+                  <Text style={{ fontSize: 14 }}> Flip </Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomButtons}>
-                <TouchableOpacity onPress={this.takePhoto} style={styles.recordingButton}>
-                <Text style={{ fontSize: 14 }}> photo </Text>
-
+                <TouchableOpacity onPress={this.takeVideo} style={this.state.isRecording ? styles.hidden : styles.recordingButton }>
+                  <Text style={{ fontSize: 14}}> photo </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.stopVideo} style={this.state.isRecording ? styles.recordingButton : styles.hidden }>
+                    <Text style={{ fontSize: 14 }}> STOP </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -133,6 +139,10 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 10,
 
+  },
+  hidden : {
+    width: 0,
+    height: 0,
   },
   flipButton: {
       flex: 1,
