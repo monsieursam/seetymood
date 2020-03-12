@@ -38,12 +38,12 @@ class VideoView extends Component {
     }
 
     getOneVideo = async() => {
-        const { idVideo } = this.props
+        const { idVideo } = this.props.route.params
         try {
             const response = await fetch(`https://hackathon.seetymood.com/api/videos/${idVideo}`);
             const responseJson = await response.json();
 
-            this.setState({allVideos: responseJson})
+            this.setState({video: responseJson})
         }
         catch (error) {
             console.error(error);
@@ -52,7 +52,8 @@ class VideoView extends Component {
 
     render() {
         const { video } = this.state
-    
+        
+        console.log(video)
         return (
         <View style={styles.container}>
                 {video && (

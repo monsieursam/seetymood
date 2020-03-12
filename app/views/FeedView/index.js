@@ -37,7 +37,7 @@ class FeedView extends Component {
     goToVideo = (id) => {
         console.log(id)
         console.log(this.props)
-        this.props.navigation.navigate('Video')
+        this.props.navigation.navigate('Video', { idVideo: id})
     }
 
     getAllVideos = async() => {

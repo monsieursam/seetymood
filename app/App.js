@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, Text} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -16,6 +16,11 @@ import 'react-native-gesture-handler';
 import SwiperView from './views/SwiperView'
 import VideoView from './views/VideoView'
 
+function LogoTitle() {
+  return (
+    <View />
+  );
+}
 
 const Stack = createStackNavigator();
 
@@ -24,7 +29,8 @@ class App extends Component {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+    >
         <Stack.Screen name="Home" component={SwiperView} />
         <Stack.Screen name="Video" component={VideoView} />
       </Stack.Navigator>

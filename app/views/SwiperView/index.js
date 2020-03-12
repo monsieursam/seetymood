@@ -17,6 +17,9 @@ import CameraView from '../CameraView';
 
 
 class SwiperView extends Component {
+    static navigationOptions = {
+        header: null
+    }
   render() {
     console.log(this.props)
 
