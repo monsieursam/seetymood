@@ -38,6 +38,7 @@ target 'seetymood' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+
   target 'seetymoodTests' do
     inherit! :search_paths
     # Pods for testing

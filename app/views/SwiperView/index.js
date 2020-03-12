@@ -8,27 +8,23 @@
 
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import 'react-native-gesture-handler';
 
-import SwiperView from './views/SwiperView'
-import VideoView from './views/VideoView'
+import Swiper from 'react-native-swiper'
+import FeedView from '../FeedView';
+import CameraView from '../CameraView';
 
 
-const Stack = createStackNavigator();
-
-class App extends Component {
+class SwiperView extends Component {
   render() {
+    console.log(this.props)
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={SwiperView} />
-        <Stack.Screen name="Video" component={VideoView} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Swiper styles={styles.wrapper} showsPagination={false} loop={false}>
+      <CameraView {...this.props} />
+      <FeedView {...this.props} />
+    </Swiper>
   );
   }
 };
@@ -62,4 +58,4 @@ const styles = StyleSheet.create({
 
 
 
-export default App;
+export default SwiperView;
