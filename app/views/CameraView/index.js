@@ -15,11 +15,10 @@ import Camera from '../../components/Camera';
 
 class CameraView extends Component {
   render() {
-  return (
-            <Camera />
-  );
-    }
+    return (
+      <Camera />
+    );
+  }
 };
-
 
 export default CameraView;
