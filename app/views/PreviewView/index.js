@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faShareSquare } from '@fortawesome/free-solid-svg-icons'
 
 import {
   View,
@@ -21,10 +22,16 @@ class PreviewView extends Component {
         return (
             <View>
                 <Text>Preview</Text>
-                <FontAwesomeIcon icon={ faCoffee } style={style.icon} />
+                <FontAwesomeIcon icon={ faShareSquare } style={style.icon} />
             </View>
         )
     }
 };
+
+const style = StyleSheet.create({
+    icon: {
+      color: 'blue'
+    }
+})
 
 export default PreviewView;
