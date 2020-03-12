@@ -16,6 +16,10 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCamera, faArrowCircleRight, faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
+import { faStopCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { RNCamera } from 'react-native-camera';
 
 export class Camera extends Component {
@@ -25,8 +29,33 @@ export class Camera extends Component {
       mute: false,
       maxDuration: 5,
       quality: RNCamera.Constants.VideoQuality['288p'],
-    }
+    },
+    show: true
   };
+
+/*   renderVideoButton = (isValid) => {
+    const { isRecording } = this.state
+
+    if (!isValid) {
+      return (
+        <TouchableOpacity onPress={() => this.yo()}>
+          <FontAwesomeIcon icon={ faCircle } style={styles.recordingButton} size={ 64 } />
+        </TouchableOpacity>
+      );
+    }
+    else {
+      return (
+        <TouchableOpacity onPress={() => this.yo()}>
+          <FontAwesomeIcon icon={ faStopCircle } style={styles.recordingButton} size={ 64 } />
+        </TouchableOpacity>
+      );
+    }
+  } */
+
+  yo = () => {
+    alert('yo')
+  }
+
 
   flipCamera = async() => {
     this.setState({
@@ -72,7 +101,7 @@ export class Camera extends Component {
   }
 
   render() {
-    const { type } = this.state;
+    const { type , isRecording} = this.state;
     return (
         <View style={styles.container}>
             <RNCamera
@@ -84,16 +113,16 @@ export class Camera extends Component {
             />
             <View style={styles.topButtons}>
                 <TouchableOpacity onPress={this.flipCamera} style={styles.flipButton}>
-                  <Text style={{ fontSize: 14 }}> Flip </Text>
+                < FontAwesomeIcon icon={ faArrowsAltV } style={styles.recordingButton} size={ 22 } />
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomButtons}>
-                <TouchableOpacity onPress={this.takeVideo} style={this.state.isRecording ? styles.hidden : styles.recordingButton }>
-                  <Text style={{ fontSize: 14}}> photo </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.stopVideo} style={this.state.isRecording ? styles.recordingButton : styles.hidden }>
-                    <Text style={{ fontSize: 14 }}> STOP </Text>
-                </TouchableOpacity>
+              {!isRecording && <TouchableOpacity onPress={() => this.takeVideo()}>
+                <FontAwesomeIcon icon={ faCircle } style={styles.recordingButton} size={ 64 } />
+              </TouchableOpacity> }
+              {isRecording && <TouchableOpacity onPress={() => this.stopVideo()}>
+                <FontAwesomeIcon icon={ faStopCircle } style={styles.recordingButton} size={ 64 } />
+              </TouchableOpacity>}
             </View>
         </View>
     );
@@ -141,6 +170,9 @@ const styles = StyleSheet.create({
   recordingButton: {
       marginBottom: 10,
   },
+  icon: {
+    color: 'gray',
+  }
 });
 
 export default Camera;

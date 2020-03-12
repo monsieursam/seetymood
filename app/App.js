@@ -8,18 +8,19 @@
 
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native'
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
 import FeedView from './views/FeedView';
 import CameraView from './views/CameraView';
+import PreviewView from './views/PreviewView';
 
 class App extends Component {
   render() {
-  return (
-     <Swiper styles={styles.wrapper} showsButtons={true}>
+    return (
+      <Swiper styles={styles.wrapper} showsButtons={false} showsPagination={false} loop={false}>
         <CameraView />
         <FeedView />
       </Swiper>
-  );
+    );
   }
 };
 
