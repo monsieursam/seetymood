@@ -13,7 +13,7 @@ import {
   ScrollView,
   View,
   Text,
-  StatusBar,
+  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
