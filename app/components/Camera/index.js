@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCamera, faArrowCircleRight, faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { faStopCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBolt } from '@fortawesome/free-solid-svg-icons';
 import { RNCamera } from 'react-native-camera';
 
 export class Camera extends Component {
@@ -30,7 +31,8 @@ export class Camera extends Component {
       maxDuration: 5,
       quality: RNCamera.Constants.VideoQuality['288p'],
     },
-    show: true
+    show: true,
+    flashMode: RNCamera.Constants.FlashMode.off
   };
 
 /*   renderVideoButton = (isValid) => {
@@ -63,6 +65,15 @@ export class Camera extends Component {
             this.state.type === RNCamera.Constants.Type.back
                 ? RNCamera.Constants.Type.front
                 : RNCamera.Constants.Type.back
+    })
+  };
+
+  activateFlash = async() => {
+    this.setState({
+      flashMode:
+        this.state.flashMode === RNCamera.Constants.FlashMode.off
+          ? RNCamera.Constants.FlashMode.on
+          : RNCamera.Constants.FlashMode.off
     })
   };
 
@@ -112,6 +123,11 @@ export class Camera extends Component {
                 type={type}
                 style={styles.preview}
             />
+            <View style={styles.topButtons}>
+                <TouchableOpacity onPress={this.activateFlash} style={styles.flashButton}>
+                  < FontAwesomeIcon icon={ faBolt } style={styles.recordingButton} size={ 22 } />
+                </TouchableOpacity>
+            </View>
             <View style={styles.topButtons}>
                 <TouchableOpacity onPress={this.flipCamera} style={styles.flipButton}>
                 < FontAwesomeIcon icon={ faArrowsAltV } style={styles.recordingButton} size={ 22 } />
@@ -167,6 +183,13 @@ const styles = StyleSheet.create({
       right: 20,
       right: 20,
       alignSelf: 'flex-end',
+  },
+  flashButton: {
+    flex: 1,
+    marginTop: 20,
+    left: 20,
+    left: 20,
+    alignSelf: 'flex-start',
   },
   recordingButton: {
       marginBottom: 10,
