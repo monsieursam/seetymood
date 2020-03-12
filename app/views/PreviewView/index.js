@@ -19,9 +19,10 @@ import {
 
 class PreviewView extends Component {
     render() {
+        const { urlVideo } = this.props.route.params
         return (
             <View>
-                <Text>Preview</Text>
+                <Text>{urlVideo}</Text>
                 <FontAwesomeIcon icon={ faShareSquare } style={style.icon} />
             </View>
         )
