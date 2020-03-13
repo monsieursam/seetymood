@@ -12,6 +12,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faShareSquare } from '@fortawesome/free-solid-svg-icons'
 import Video from 'react-native-video';
 
+import RNFS from 'react-native-fs'
 
 import {
   View,
@@ -50,22 +51,19 @@ class PreviewView extends Component {
         if (!this.state) {
             return
         }
-
-        const { title, description } = this.state
         const { urlVideo } = this.props.route.params
+        const { title, description } = this.state
 
-        return (
+        RNFS.readFile(urlVideo, "base64").then(data => {
+            // binary data
+            console.log(data, description, title);
+            const formData  = new FormData()
+            formData.append('title', title)
+            formData.append('description', description)
+            formData.append('file', urlVideo)
             fetch('https://hackathon.seetymood.com/api/videos', {  
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: title,
-                    description: description,
-                    file: urlVideo
-                })
+                body: formData
             })
             .then((response) => response.json())
             .then((responseData) => {
@@ -76,7 +74,7 @@ class PreviewView extends Component {
                 console.log('bresil')
                 console.log(error);
             })
-        ) 
+        });
     }
 
     render() {
