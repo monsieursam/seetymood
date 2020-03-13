@@ -36,6 +36,18 @@ class PreviewView extends Component {
         }
     }
 
+    findCoordinates = () => {
+		navigator.geolocation.getCurrentPosition(
+			position => {
+				const location = JSON.stringify(position);
+
+				this.setState({ location });
+			},
+			error => Alert.alert(error.message),
+			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+		);
+	};
+
     handleTitle = (text) => {
         this.setState({ title: text })
     }
@@ -51,8 +63,9 @@ class PreviewView extends Component {
         if (!this.state) {
             return
         }
+
+        const { title, description, location } = this.state
         const { urlVideo } = this.props.route.params
-        const { title, description } = this.state
 
         var photo = {
             uri: urlVideo,
@@ -109,7 +122,7 @@ class PreviewView extends Component {
                             onError={this.videoError}               // Callback when video cannot be loaded
                             style={styles.backgroundVideo} />
                         <TouchableOpacity style = {styles.submitButton} 
-                            onPress = {() => this.sendVideo()}>
+                            onPress = {() => { this.findCoordinates(); this.sendVideo() }}>
                             <FontAwesomeIcon icon={ faShareSquare } style={styles.icon} />
                         </TouchableOpacity>
                     </React.Fragment>
