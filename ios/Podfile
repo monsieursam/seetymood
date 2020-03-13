@@ -40,6 +40,8 @@ target 'seetymood' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'seetymoodTests' do
     inherit! :search_paths
     # Pods for testing
