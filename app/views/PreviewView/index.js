@@ -21,6 +21,7 @@ import {
   TextInput
 } from 'react-native';
 import { Fragment } from 'react';
+import { useNavigationBuilder } from '@react-navigation/native';
 
 class PreviewView extends Component {
     constructor(props) {
@@ -45,9 +46,37 @@ class PreviewView extends Component {
     handleLocation = (text) => {
         this.setState({ location: text })
     }
+    sendVideo = async() => {
+        if (!this.state) {
+            return
+        }
 
-    sendVideo(title, description, video) {
-       // 'title': text, 'description': text
+        const { title, description } = this.state
+        const { urlVideo } = this.props.route.params
+
+        return (
+            fetch('https://hackathon.seetymood.com/api/videos', {  
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    file: urlVideo
+                })
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log('espagne')
+                console.log(responseData);
+            })
+            .catch((error) => {
+                console.log('bresil')
+                console.log(error);
+            })
+        ) 
     }
 
     render() {
@@ -78,7 +107,7 @@ class PreviewView extends Component {
                             onError={this.videoError}               // Callback when video cannot be loaded
                             style={styles.backgroundVideo} />
                         <TouchableOpacity style = {styles.submitButton} 
-                            onPress = {() => this.sendVideo(this.state.title, this.state.description, this.state.video)}>
+                            onPress = {() => this.sendVideo()}>
                             <FontAwesomeIcon icon={ faShareSquare } style={styles.icon} />
                         </TouchableOpacity>
                     </React.Fragment>
