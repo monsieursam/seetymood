@@ -13,6 +13,7 @@ import { faShareSquare } from '@fortawesome/free-solid-svg-icons'
 import Video from 'react-native-video';
 
 import * as RNFS from 'react-native-fs';
+import Geolocation from '@react-native-community/geolocation'
 
 import {
   View,
@@ -32,20 +33,27 @@ class PreviewView extends Component {
             title: null,
             video: null,
             description: null,
-            location: null
+            location: { latitude: 0, longitude: 0}
         }
     }
 
-    findCoordinates = () => {
-		navigator.geolocation.getCurrentPosition(
-			position => {
-				const location = JSON.stringify(position);
+    componentDidMount() {
+        this.findCoordinates()
+    }
 
-				this.setState({ location });
+    findCoordinates = () => {
+        let data
+		Geolocation.getCurrentPosition(
+			position => {
+                
+                const { coords } = position
+
+                this.setState({ location: {latitude: coords.latitude, longitude: coords.longitude }});
+                console.log('youpi g la loca')
 			},
 			error => Alert.alert(error.message),
 			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-		);
+        );
 	};
 
     handleTitle = (text) => {
@@ -71,14 +79,20 @@ class PreviewView extends Component {
             uri: urlVideo,
             type: 'video/mp4',
             name: urlVideo,
-        }
+        }        
 
             console.log('Je lis le fichier')
-            console.log(urlVideo, description, title);
+            console.log(photo);
+            console.log(location)
             const formData  = new FormData()
             formData.append('title', title)
             formData.append('description', description)
             formData.append('video', photo)
+            console.log('location')
+            console.log(location)
+            // formData.append('location', location)
+
+            console.log(formData)
             fetch('https://hackathon.seetymood.com/api/videos', {  
                 method: 'POST',
                 body: formData
